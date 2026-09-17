@@ -1871,6 +1871,104 @@ html.arcade-ui[data-control-layout=two] #stage #event{bottom:calc(186px + var(--
 @media(hover:hover){.arcade-ui #stage #buff-hud .buff-chip:hover{background:transparent!important}.arcade-ui #stage #buff-hud .buff-chip:hover::before{background:#fff}}
 @media(max-width:599px){.arcade-ui #stage #buff-hud{right:98px}}
 @media(max-height:450px) and (min-width:600px){.arcade-ui #stage #buff-hud{right:184px}}
+</style>
+<style id="arcade-reference-polish">
+/* Reference finish only: preserve typography, geometry, art and game-state wiring. */
+.arcade-ui {
+ --arc-wave:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='sky' x2='1' y2='.3'%3E%3Cstop stop-color='%23168efa'/%3E%3Cstop offset='1' stop-color='%234cafff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23sky)' d='M0 0h600v52Q450 30 300 52T0 52z'/%3E%3Cpath fill='%2388dfff' fill-opacity='.25' d='M320 0h64v8h-16v8h-16v8h-32zM568 0h32v24h-16v-8h-16zM0 20h16v16H0z'/%3E%3Cpath fill='%23c4ff17' d='M0 44Q150 68 300 44T600 44v11Q450 31 300 55T0 55z'/%3E%3Cpath fill='%2384fa19' d='M0 55Q150 79 300 55T600 55v6Q450 37 300 61T0 61z'/%3E%3Cpath fill='%233454f6' d='M0 61Q150 85 300 61T600 61v7Q450 44 300 68T0 68z'/%3E%3Cg fill='%2389ecff' stroke='%232562d6' stroke-width='1'%3E%3Cpath d='M216 24h5v-4l8 7-8 7v-4h-5l4-3zM450 11h4V8l6 5-6 5v-3h-4l3-2z'/%3E%3C/g%3E%3Cpath fill='%23d6faff' d='M245 13h3v3h-3zM493 30h4v4h-4z'/%3E%3C/svg%3E");
+ --arc-panel-finish:linear-gradient(120deg,#f5fbff70,transparent 48%),linear-gradient(0deg,#bedff540,transparent 48%);
+ --arc-slot-checks:repeating-conic-gradient(#739ae33b 0 25%,transparent 0 50%);
+}
+
+/* A white inner keyline separates the pale panel from its saturated blue frame. */
+.arcade-ui #stage #overlay:not([data-home=true]) .dialog,
+.arcade-ui .route-dialog {
+ background-image:var(--arc-panel-finish)!important;
+ box-shadow:inset 0 0 0 1px #f2fcff,0 5px 0 #4051dba6,0 15px 32px #152e5745!important;
+}
+.arcade-ui #stage #overlay:not([data-home=true]) .dialog::before,
+.arcade-ui .route-dialog::before {
+ box-shadow:inset 0 2px 0 #9edfff80;
+}
+.arcade-ui #stage #overlay:not([data-home=true]) .dialog::after,
+.arcade-ui .route-dialog::after {
+ opacity:.3;
+ mask-image:linear-gradient(transparent,#000 65%);
+}
+
+/* Keep ornament at the edges, away from slot labels and collectible artwork. */
+.arcade-ui #loadout .loadout-group {
+ background:linear-gradient(180deg,#f2faff,#deedf9);
+ box-shadow:inset 0 0 0 1px #fff,0 3px 0 #4052c8,0 5px 0 #96dbff80;
+}
+.arcade-ui #loadout .loadout-label {
+ background:var(--arc-slot-checks) right center/6px 6px no-repeat,linear-gradient(90deg,#bfd3f0b3,transparent 85%);
+}
+.arcade-ui #loadout .loadout-slot:not([data-item]),
+.arcade-ui #loadout .loadout-slot[data-item=""] {
+ background-color:#cfdfef;
+ border-color:#7f9ec2;
+ box-shadow:inset 0 0 0 1px #f4fbff,inset 0 -3px 0 #a6bfdb55;
+}
+
+/* Hard drop shares the same enamel, inset rim and pressed travel as movement. */
+.arcade-ui #stage :is(.move-button,.rotate-fab,.drop-fab),
+.arcade-ui #motion-tuner-open {
+ background-image:var(--arc-rim),linear-gradient(155deg,#fff 8%,#e9f5fc 45%,#c5dcf0 100%)!important;
+ background-repeat:no-repeat!important;
+ background-size:100% 100%!important;
+ box-shadow:inset 0 0 0 2px #fff,inset 0 -4px 0 #99b8d64d,0 0 0 2px #c8ecff,0 4px 0 #3b53bd!important;
+}
+.arcade-ui #stage :is(.move-button,.rotate-fab,.drop-fab):active:not(:disabled),
+.arcade-ui #stage :is(.move-button,.soft-control)[data-held=true],
+.arcade-ui #motion-tuner-open:active {
+ transform:translateY(2px);
+ box-shadow:inset 0 0 0 2px #fff,inset 0 3px 0 #99b8d64d,0 0 0 2px #c8ecff,0 2px 0 #3b53bd!important;
+}
+.arcade-ui #stage #home-library-open {
+ background-image:var(--arc-cap),linear-gradient(180deg,#fff9,transparent 60%,#afc9e65c);
+ background-position:left center,center;
+ background-size:22px 32px,100% 100%;
+ background-repeat:no-repeat;
+ box-shadow:inset 0 0 0 2px #fff,0 3px 0 #3d54be;
+}
+
+/* Static corner pixels frame ability details without adding another animation. */
+.arcade-ui .arc-ability-detail {
+ position:relative;
+ border-color:#4d69bb;
+ background:linear-gradient(135deg,#f4fcff,#e3f1fc);
+ box-shadow:inset 0 0 0 2px #fff,0 0 0 3px #9edcf4,4px 5px 0 #75bce25c;
+}
+.arcade-ui .arc-ability-detail::after {
+ content:"";position:absolute;inset:-7px;pointer-events:none;
+ background:linear-gradient(#76bbfa 0 0) left top/5px 5px no-repeat,
+ linear-gradient(#76bbfa 0 0) right top/5px 5px no-repeat,
+ linear-gradient(#76bbfa 0 0) left bottom/5px 5px no-repeat,
+ linear-gradient(#76bbfa 0 0) right bottom/5px 5px no-repeat;
+}
+.arcade-ui .arc-ability-detail .insertion-info-heading {
+ display:grid;grid-template-columns:32px minmax(0,1fr);gap:8px;align-items:center;
+}
+.arcade-ui .arc-ability-detail .insertion-info-heading>.insertion-info-glyph {
+ width:32px;height:32px;grid-column:1;grid-row:1;
+}
+.arcade-ui .arc-ability-detail .insertion-info-heading>h3 {
+ grid-column:2;grid-row:1;min-width:0;
+}
+.arcade-ui .arc-ability-detail .insertion-info-heading>strong {
+ grid-column:2;grid-row:2;justify-self:start;
+}
+.arcade-ui .arc-ability-tab[aria-selected=true] .insertion-info-glyph {
+ background-color:#f4ffd9;
+ box-shadow:inset 0 0 0 3px #fff,0 0 0 2px #3454f6,0 0 0 6px #a4e900;
+}
+.arcade-ui #stage-plan .plan-steps [aria-current=step] span {
+ box-shadow:inset 0 0 0 1px #f8ffc2,0 0 0 2px #3653da;
+}
+@media(hover:hover) {
+ .arcade-ui #stage :is(.drop-fab,#home-library-open):hover:not(:disabled) {filter:brightness(1.06)}
+}
 </style></head><body class="home-active">
 <!-- Motion tuner: a local extension of the existing home UI, no visual-system redesign.
      Adjust nine bounded parameters, preview without changing a run, restore current defaults. -->
