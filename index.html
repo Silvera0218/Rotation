@@ -1688,9 +1688,10 @@ body:has(.route-dialog[open]) .arc-home-brand{visibility:hidden}
 @media(prefers-reduced-motion:reduce){.arcade-ui #stage .tcg-card:is([data-rarity=PSER],[data-rarity=UTR]) :is(.card-foil,.card-foil:after,.card-specular){transition:none;background-position:center!important}}
 
 /* Library card viewer: reuse the playable cards and their foil layers. */
-.arcade-ui #stage #home-library{width:min(840px,calc(100vw - 24px));box-sizing:border-box;max-width:none;max-height:calc(100dvh - 24px);padding:78px 22px 18px;overflow:hidden}
+.arcade-ui #stage #home-library{width:min(840px,calc(100vw - 24px));height:calc(100dvh - 24px);box-sizing:border-box;max-width:none;max-height:calc(100dvh - 24px);padding:78px 22px 18px;overflow:hidden}
 .arcade-ui #stage #home-library>p{margin:0 0 8px}
-.arcade-ui #stage #home-library .library-list{max-height:none;min-height:0;overflow:auto;scroll-padding-block:8px}
+/* A definite dialog height and an auto flex basis keep WebKit's list from collapsing. */
+.arcade-ui #stage #home-library .library-list{flex:1 1 auto;max-height:none;min-height:0;overflow:auto;scroll-padding-block:8px;-webkit-overflow-scrolling:touch}
 .arcade-ui #home-library .library-list summary{display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 5px;list-style:none}
 .arcade-ui #home-library .library-list summary::-webkit-details-marker{display:none}
 .arcade-ui #home-library .library-list summary:after{content:'+';margin-left:auto;flex:none;color:#4969a0;font-size:20px}
@@ -1737,7 +1738,6 @@ body:has(.route-dialog[open]) .arc-home-brand{visibility:hidden}
 .arcade-ui #stage :is(.move-button,.rotate-fab)[data-arc-pressable]:active,.arcade-ui #stage #buff-hud .buff-chip[data-arc-pressable]:active{transform:none}
 /* Arm the hidden surface before opening, and keep incoming panels off the water reveal. */
 .arcade-ui #overlay:not([data-home=true]) .dialog[data-arc-entry=pending],.arcade-ui .route-dialog[data-arc-entry=pending],.arcade-ui body:has(#fluidTransition.active) #overlay:not([data-home=true]) .dialog{opacity:0;pointer-events:none}
-.arcade-ui .arc-hud-form{position:fixed;inset:0;width:0;height:0;pointer-events:none;overflow:hidden}
 .arcade-ui #overlay .dialog[data-arc-entry=exiting]{pointer-events:none}
 .arcade-ui #stage #overlay[data-arc-dismissing=true]::before{opacity:0!important;visibility:hidden!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 .arcade-ui .arc-hud-particles{display:block;position:fixed!important;left:var(--arc-vv-left,0px)!important;top:var(--arc-vv-top,0px)!important;right:auto!important;bottom:auto!important;width:var(--arc-vv-width,100vw)!important;height:var(--arc-vv-height,100dvh)!important;max-width:none!important;max-height:none!important;z-index:2147483647!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:hidden;pointer-events:none!important;contain:layout style paint;isolation:isolate}
@@ -7049,7 +7049,7 @@ three/build/three.module.js:
 })();
 </script><script id="arcade-hud-motion">(()=>{
  const overlay=document.getElementById('overlay'),panel=overlay.querySelector('.dialog'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
- const pressed=new Map(),layers=new Map(),reveals=new Map(),forms=new Map(),states=new Map(),departures=new Map();let disposed=false,formId=0,replayingStart=false,dismissing=false,dismissTimer=0;
+ const pressed=new Map(),layers=new Map(),reveals=new Map(),forms=new Map(),states=new Map(),departures=new Map();let disposed=false,replayingStart=false,dismissing=false,dismissTimer=0;
  const transition=document.getElementById('fluidTransition');
  // Cosmetic stream uses its own seeded sequence and never consumes the gameplay RNG.
  let particleSeed=0x5a17c9;const random=()=>{particleSeed=(Math.imul(particleSeed,1664525)+1013904223)>>>0;return particleSeed/4294967296;};
@@ -7071,18 +7071,17 @@ three/build/three.module.js:
  function resetDismiss(){if(dismissTimer)clearTimeout(dismissTimer);dismissTimer=0;dismissing=false;delete overlay.dataset.arcDismissing;}
  function keyboard(e){clearPress();if((dismissing||departures.has(panel))&&panel.contains(e.target)){e.preventDefault();e.stopImmediatePropagation();if(e.key==='Escape'){const button=departures.get(panel)?.button||e.target.closest?.('button');clearLayer(panel);resetDismiss();button?.focus({preventScroll:true});}}}
  function clearForm(target){
-  const form=forms.get(target);if(!form)return;forms.delete(target);cancelAnimationFrame(form.frame);form.svg.remove();
+  const form=forms.get(target);if(!form)return;forms.delete(target);cancelAnimationFrame(form.frame);
   for(const [name,value,priority] of form.style){if(value)target.style.setProperty(name,value,priority);else target.style.removeProperty(name);}
  }
  function formSurface(target,r,reveal,origin=null){
-  const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg'),defs=document.createElementNS(ns,'defs'),mask=document.createElementNS(ns,'mask');
-  const id='arc-pixel-form-'+(++formId),alphas=[.18,.4,.65,.85,1],paths=[];
-  svg.classList.add('arc-hud-form');svg.setAttribute('aria-hidden','true');svg.dataset.arcFormFor=target.id||'overlay-panel';
-  mask.id=id;mask.setAttribute('maskUnits','objectBoundingBox');mask.setAttribute('maskContentUnits','objectBoundingBox');mask.setAttribute('x','0');mask.setAttribute('y','0');mask.setAttribute('width','1');mask.setAttribute('height','1');mask.style.maskType='alpha';
-  for(const alpha of alphas){const path=document.createElementNS(ns,'path');path.setAttribute('fill','white');path.setAttribute('fill-opacity',alpha);mask.append(path);paths.push(path);}
-  defs.append(mask);svg.append(defs);document.body.append(svg);
-  const style=['mask-image','mask-mode'].map(name=>[name,target.style.getPropertyValue(name),target.style.getPropertyPriority(name)]);
-  target.style.setProperty('mask-image','url(#'+id+')');target.style.setProperty('mask-mode','alpha');
+  const alphas=[.18,.4,.65,.85,1];
+  // Use a self-contained image: an HTML surface in the top layer must not depend
+  // on WebKit repainting a fragment reference in a separate zero-sized SVG.
+  const properties=['-webkit-mask-image','-webkit-mask-size','-webkit-mask-repeat','-webkit-mask-origin','-webkit-mask-clip','mask-image','mask-size','mask-repeat','mask-origin','mask-clip','mask-mode'];
+  const style=properties.map(name=>[name,target.style.getPropertyValue(name),target.style.getPropertyPriority(name)]);
+  for(const prefix of ['-webkit-',''])for(const [name,value] of [['size','100% 100%'],['repeat','no-repeat'],['origin','border-box'],['clip','border-box']])target.style.setProperty(prefix+'mask-'+name,value);
+  target.style.setProperty('mask-mode','alpha');
   const cell=r.width>600?22:18,cols=Math.ceil(r.width/cell),rows=Math.ceil(r.height/cell),tiles=[];
   const radius=origin?Math.hypot(Math.max(origin.x-r.left,r.right-origin.x),Math.max(origin.y-r.top,r.bottom-origin.y)):1;
   for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
@@ -7091,7 +7090,7 @@ three/build/three.module.js:
    const along=origin?Math.hypot(r.left+(x+.5)*r.width/cols-origin.x,r.top+(y+.5)*r.height/rows-origin.y)/radius:(x/cols+1-(y+1)/rows)*.5;
    tiles.push({x:x/cols,y:y/rows,w:1/cols,h:1/rows,start:Math.max(.02,Math.min(.84,.07+along*.72+(random()-.5)*.24))});
   }
-  const form={svg,style,frame:0};forms.set(target,form);
+  const form={style,frame:0};forms.set(target,form);
   function paint(){
    if(forms.get(target)!==form)return;
    const progress=reveal.effect.getComputedTiming().progress||0,groups=alphas.map(()=>[]);
@@ -7103,7 +7102,10 @@ three/build/three.module.js:
     const w=tile.w*size+(ready?.0005:0),h=tile.h*size+(ready?.0005:0);
     groups[bucket].push('M'+x.toFixed(5)+' '+y.toFixed(5)+'h'+w.toFixed(5)+'v'+h.toFixed(5)+'h-'+w.toFixed(5)+'z');
    }
-   groups.forEach((segments,i)=>paths[i].setAttribute('d',segments.join('')));
+   const paths=groups.map((segments,i)=>'<path fill="white" fill-opacity="'+alphas[i]+'" d="'+segments.join('')+'"/>').join('');
+   const svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+Math.ceil(r.width)+'" height="'+Math.ceil(r.height)+'" viewBox="0 0 1 1" preserveAspectRatio="none">'+paths+'</svg>';
+   const image='url("data:image/svg+xml,'+encodeURIComponent(svg)+'")';
+   target.style.setProperty('-webkit-mask-image',image);target.style.setProperty('mask-image',image);
    form.frame=requestAnimationFrame(paint);
   }
   paint();
@@ -7193,10 +7195,13 @@ three/build/three.module.js:
  const buttonsObserver=new MutationObserver(records=>{for(const r of records)for(const node of r.addedNodes)mark(node);});
  for(const root of [document.getElementById('stage'),...dialogs,document.getElementById('motion-tuner-open')]){mark(root);buttonsObserver.observe(root,{childList:true,subtree:true});}
  function suspended(){clearPress();resetDismiss();clearLayers();}
+ // Mobile browser bars resize the visual viewport during taps and scrolling.
+ // Finish the active reveal/departure so an accepted Start tap is not discarded.
+ function viewportChanged(){clearPress();for(const [target,reveal] of reveals){removeParticles(target);reveal.finish();}}
  function visibility(){if(document.hidden)suspended();}
  document.addEventListener('click',dismissPanel,true);document.addEventListener('pointerdown',down,true);document.addEventListener('pointerup',up,true);document.addEventListener('pointercancel',up,true);document.addEventListener('lostpointercapture',up,true);document.addEventListener('pointerout',leave,true);document.addEventListener('keydown',keyboard,true);
- window.addEventListener('blur',suspended);window.addEventListener('resize',suspended);window.visualViewport?.addEventListener('resize',suspended);window.visualViewport?.addEventListener('scroll',suspended);document.addEventListener('visibilitychange',visibility);reduced.addEventListener('change',suspended);sync();
- window.addEventListener('pagehide',e=>{suspended();if(e.persisted)return;disposed=true;stateObserver.disconnect();buttonsObserver.disconnect();document.removeEventListener('click',dismissPanel,true);document.removeEventListener('pointerdown',down,true);document.removeEventListener('pointerup',up,true);document.removeEventListener('pointercancel',up,true);document.removeEventListener('lostpointercapture',up,true);document.removeEventListener('pointerout',leave,true);document.removeEventListener('keydown',keyboard,true);window.removeEventListener('blur',suspended);window.removeEventListener('resize',suspended);window.visualViewport?.removeEventListener('resize',suspended);window.visualViewport?.removeEventListener('scroll',suspended);document.removeEventListener('visibilitychange',visibility);reduced.removeEventListener('change',suspended);},{once:true});
+ window.addEventListener('blur',suspended);window.addEventListener('resize',viewportChanged);window.visualViewport?.addEventListener('resize',viewportChanged);window.visualViewport?.addEventListener('scroll',viewportChanged);document.addEventListener('visibilitychange',visibility);reduced.addEventListener('change',suspended);sync();
+ window.addEventListener('pagehide',e=>{suspended();if(e.persisted)return;disposed=true;stateObserver.disconnect();buttonsObserver.disconnect();document.removeEventListener('click',dismissPanel,true);document.removeEventListener('pointerdown',down,true);document.removeEventListener('pointerup',up,true);document.removeEventListener('pointercancel',up,true);document.removeEventListener('lostpointercapture',up,true);document.removeEventListener('pointerout',leave,true);document.removeEventListener('keydown',keyboard,true);window.removeEventListener('blur',suspended);window.removeEventListener('resize',viewportChanged);window.visualViewport?.removeEventListener('resize',viewportChanged);window.visualViewport?.removeEventListener('scroll',viewportChanged);document.removeEventListener('visibilitychange',visibility);reduced.removeEventListener('change',suspended);},{once:true});
 })();
 </script><script id="arcade-hr-material">(()=>{
  const fragment="#version 300 es\nprecision highp float;\nuniform sampler2D uArt;\nuniform vec2 uView;\nuniform vec2 uPointer;\nuniform vec2 uTexel;\nin vec2 vUv;\nout vec4 outColor;\nconst vec3 LUMA=vec3(.2126,.7152,.0722);\nfloat gaussian(float v,float center,float width){float x=(v-center)/width;return exp(-x*x);}\nvec4 art(vec2 uv){return texture(uArt,clamp(uv,uTexel,vec2(1.)-uTexel));}\n// Continuous interpolation of the reference's seven optical reconstruction depths.\nfloat layerOffset(float i){\n if(i<.5)return -.004;if(i<1.5)return -.001;if(i<2.5)return .0025;\n if(i<3.5)return .0065;if(i<4.5)return .0108;if(i<5.5)return .0154;return .020;\n}\nvoid main(){\n vec4 seed=art(vUv);\n float depth=seed.a;\n float lp=depth*6.,lo=floor(lp),hi=min(lo+1.,6.);\n float offset=mix(layerOffset(lo),layerOffset(hi),smoothstep(0.,1.,fract(lp)));\n vec2 axis=(uPointer-.5)*2.;\n vec2 shift=uView*vec2(1.,.72)+axis*vec2(.46,.32);\n vec2 uv=vUv+shift*offset*1.35;\n vec4 ink=art(uv);\n float gray=dot(ink.rgb,LUMA);\n float lightDepth=clamp(.48+axis.x*.30+axis.y*.13,0.,1.);\n float lit=gaussian(depth,lightDepth,.29);\n float optical=uView.x+axis.x*.55+axis.y*.12;\n float window=gaussian(depth,clamp(.5+optical*.32,0.,1.),.24);\n float reveal=smoothstep(.06,.35,length(uView))*(1.-smoothstep(1.08,1.5,length(uView)));\n float detail=clamp((gray-.48)*(1.45+lit*.65)+.52,0.,1.);\n float reconstruction=clamp(.28+reveal*.30+window*.24+lit*.16,.25,.94);\n vec3 silver=vec3(.83,.85,.87)+(detail-.5)*vec3(.11,.12,.13);\n vec3 engraved=mix(vec3(.12,.155,.205),vec3(.94,.97,.99),pow(detail,.84));\n vec3 color=mix(silver,engraved,reconstruction);\n // The relief is derived from actual SVG ink, not a moving checkerboard overlay.\n vec2 normal=vec2(art(uv+vec2(uTexel.x,0.)).a-art(uv-vec2(uTexel.x,0.)).a,\n                  art(uv+vec2(0.,uTexel.y)).a-art(uv-vec2(0.,uTexel.y)).a);\n float bevel=clamp(dot(normal,normalize(vec2(-.7,-.6)+axis*.35))*2.4,-.17,.17);\n color+=vec3(bevel);\n float phase=vUv.x*970.+vUv.y*111.+depth*56.+dot(uView,vec2(104.,-71.));\n float fringe=pow(.5+.5*cos(phase),22.);\n float carrier=pow(.5+.5*cos(dot(vUv,vec2(.86,.44))*78.+dot(uView,vec2(-12.,9.))),12.);\n vec3 spectrum=.5+.5*cos(vec3(0.,2.094,4.188)+phase*.075+window*2.4);\n spectrum=mix(vec3(dot(spectrum,LUMA)),spectrum,.16);\n color+=spectrum*(fringe*.045+carrier*.026)*(.3+window*.7);\n vec2 delta=vUv-uPointer;\n float bandAxis=delta.x+delta.y*(.15+axis.x*.15);\n float band=exp(-bandAxis*bandAxis*29.);\n float whiteSpot=1.-smoothstep(.02,.72,length(delta));\n color+=vec3(.96,.98,1.)*(band*(.06+lit*.11)+whiteSpot*.04);\n float edge=smoothstep(0.,.025,vUv.x)*smoothstep(0.,.025,vUv.y)*smoothstep(0.,.025,1.-vUv.x)*smoothstep(0.,.025,1.-vUv.y);\n color*=mix(.77,1.,edge);\n outColor=vec4(clamp(color,0.,1.),1.);\n}\n";
