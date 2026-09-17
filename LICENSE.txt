@@ -1,0 +1,216 @@
+ROTATION PLAYABLE BUILD LICENSE
+Version 1.0
+Effective date: 2026-09-17
+
+Copyright (c) 2026 Junlin TAN.
+All rights reserved.
+
+======================================================================
+1. SCOPE
+======================================================================
+
+This license applies to the ROTATION playable build and all original
+materials included in or distributed with it, including but not limited to:
+
+- HTML, JavaScript, CSS, and configuration code;
+- game rules, gameplay systems, and balancing design;
+- user interface and user experience design;
+- visual effects, animations, and interaction effects;
+- original artwork, icons, fonts, and visual assets;
+- level layouts and stage designs;
+- pixel card designs and card effects;
+- special block designs and special block effects;
+- original text, labels, descriptions, and game data;
+- the overall presentation, arrangement, and combination of the above.
+
+The copyright holder of the original materials is:
+
+Junlin TAN
+
+======================================================================
+2. LIMITED PERSONAL PLAY PERMISSION
+======================================================================
+
+The copyright holder grants the user a limited, personal, non-exclusive,
+non-transferable, revocable, and non-commercial permission to:
+
+- access and play the official online version of ROTATION;
+- share the official GitHub Pages URL;
+- record screenshots or gameplay videos for personal,
+  non-commercial discussion, review, or demonstration;
+- mention or review the game publicly, provided that the copyright holder
+  and the official playable URL are clearly credited.
+
+Official playable version:
+
+https://YOUR-USERNAME.github.io/bearing-rotor-play/
+
+This permission applies only to the official playable version and does not
+grant ownership of the source code, game design, visual assets, interface,
+effects, or other original materials.
+
+======================================================================
+3. PROHIBITED ACTIONS
+======================================================================
+
+Without prior written permission from the copyright holder, the user may not:
+
+- copy, download, mirror, archive, or redistribute the game files;
+- upload the game files to another website, repository, cloud drive,
+  game platform, or distribution channel;
+- publish a local or offline copy of the game;
+- modify, edit, translate, recompile, decompile, disassemble, or repackage
+  the game;
+- remove, hide, or alter the game title, author information, copyright
+  notices, version information, or license text;
+- change the game name, logo, branding, or author attribution;
+- rebrand, reskin, redesign, or present the game as another person's work;
+- create, publish, distribute, or sell a modified version of the game;
+- create or publish a derivative version based on the game;
+- claim the game, source code, gameplay system, interface, visual design,
+  effects, animations, cards, special blocks, or assets as their own work;
+- extract, reuse, sell, sublicense, or redistribute any code, visual asset,
+  UI element, effect, animation, card design, special block design,
+  game data, or other original material;
+- use the game or any part of it for commercial purposes;
+- include the game or any part of it in another commercial or non-commercial
+  product without written permission;
+- use the game or any part of it as training material for another
+  commercial product without written permission;
+- make the game available through a downloadable package, mirror,
+  launcher, mod pack, or third-party hosting service;
+- circumvent access restrictions, attribution requirements, or technical
+  protection measures applied to the official release.
+
+Sharing the official GitHub Pages URL is allowed.
+Sharing a copied or modified game file is not allowed.
+
+======================================================================
+4. ATTRIBUTION
+======================================================================
+
+Any permitted screenshot, gameplay video, review, article, stream,
+or public discussion must include the following attribution:
+
+ROTATION
+Created by Junlin TAN
+
+Official playable version:
+https://YOUR-USERNAME.github.io/bearing-rotor-play/
+
+The attribution must not imply that Junlin TAN endorses, sponsors,
+or approves any modified, rebranded, or unofficial version.
+
+======================================================================
+5. THIRD-PARTY COMPONENTS
+======================================================================
+
+This license applies only to original materials created or owned by
+Junlin TAN.
+
+This license does not replace, restrict, or override the licenses of
+third-party software, fonts, libraries, frameworks, icons, sounds,
+images, or other components included in or used by the project.
+
+Third-party components remain subject to their respective licenses.
+The applicable third-party notices and license texts are listed in:
+
+THIRD_PARTY_NOTICES.txt
+
+If a third-party component grants permissions that are different from
+this license, those permissions apply only to that third-party component
+and do not grant permission to use the original ROTATION materials.
+
+======================================================================
+6. OWNERSHIP
+======================================================================
+
+The game, its original code, game rules, gameplay systems, interface,
+visual design, effects, animations, cards, special blocks, written
+content, and original assets remain the property of Junlin TAN.
+
+Accessing or playing the official online version does not transfer
+ownership or copyright to the user.
+
+No ownership, authorship, trademark, patent, or other intellectual
+property rights are transferred under this license.
+
+======================================================================
+7. TERMINATION
+======================================================================
+
+This permission automatically terminates if the user violates any term
+of this license.
+
+After termination, the user must immediately stop:
+
+- accessing or using unauthorized copies;
+- distributing or displaying the game;
+- publishing modified or rebranded versions;
+- using extracted code, assets, effects, designs, or game data.
+
+Termination does not limit any other rights or remedies available to the
+copyright holder.
+
+======================================================================
+8. PERMISSION REQUESTS
+======================================================================
+
+Requests for permission to modify, redistribute, translate, adapt,
+commercialize, or otherwise use the game or its original materials
+must be submitted in writing.
+
+Contact:
+
+t1667817054@163.com
+
+A request is not approved unless the copyright holder provides explicit
+written permission.
+
+======================================================================
+9. DISCLAIMER
+======================================================================
+
+The official playable build is provided on an "AS IS" and
+"AS AVAILABLE" basis.
+
+The copyright holder makes no warranty that the game will:
+
+- remain available without interruption;
+- work on every browser, device, or operating system;
+- remain compatible with future software or hardware;
+- be free from bugs, errors, or temporary service interruptions;
+- meet a particular purpose or expectation.
+
+To the extent permitted by applicable law, the copyright holder is not
+liable for any loss, damage, interruption, or issue arising from the use
+of the official playable build.
+
+======================================================================
+10. GOVERNING TERMS
+======================================================================
+
+This license is intended to define the permitted and prohibited uses of
+the ROTATION playable build and its original materials.
+
+If any provision of this license is found to be invalid or
+unenforceable, the remaining provisions will continue to apply to the
+maximum extent permitted by law.
+
+======================================================================
+11. AUTHOR AND COPYRIGHT NOTICE
+======================================================================
+
+ROTATION
+
+Created by:
+Junlin TAN
+
+Contact:
+t1667817054@163.com
+
+Copyright (c) 2026 Junlin TAN.
+All rights reserved.
+
+Official playable version:
+https://YOUR-USERNAME.github.io/bearing-rotor-play/
