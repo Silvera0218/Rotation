@@ -1969,6 +1969,125 @@ html.arcade-ui[data-control-layout=two] #stage #event{bottom:calc(186px + var(--
 @media(hover:hover) {
  .arcade-ui #stage :is(.drop-fab,#home-library-open):hover:not(:disabled) {filter:brightness(1.06)}
 }
+</style>
+<style id="arcade-close-buttons">
+/* One reference-shaped close mark; original labels remain accessible. */
+.arcade-ui {
+ --arc-close-mark:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='%23fff' stroke='%23168efa' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M5 3h6l8 8 8-8h7v7L22 22v6h-6L7 37H2v-7l11-11L4 10V3z'/%3E%3Cpath d='M28 28h8v8h-8z'/%3E%3C/g%3E%3C/svg%3E");
+}
+.arcade-ui .route-dialog button:is([data-close],[data-motion-close],#exit-cancel,#special-ad-back,#arc-claim-back),
+.arcade-ui #stage #overlay .dialog #arc-overlay-close {
+ position:absolute!important;inset:10px 12px auto auto!important;z-index:8!important;
+ width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;
+ margin:0!important;padding:4px!important;flex:none;
+ border:0!important;border-radius:8px!important;background:transparent!important;
+ box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+ font-size:0!important;line-height:0!important;letter-spacing:0!important;
+ clip-path:none!important;transform:none;touch-action:manipulation;
+}
+.arcade-ui .route-dialog button:is([data-close],[data-motion-close],#exit-cancel,#special-ad-back,#arc-claim-back)::before,
+.arcade-ui #stage #overlay .dialog #arc-overlay-close::before {
+ content:"";display:block;width:40px;height:40px;background:var(--arc-close-mark) center/contain no-repeat;
+ filter:drop-shadow(0 1px 1px #2053a966);pointer-events:none;
+ transition:transform 120ms ease-out,filter 120ms ease-out;
+}
+.arcade-ui .route-dialog button:is([data-close],[data-motion-close],#exit-cancel,#special-ad-back,#arc-claim-back):active:not(:disabled)::before,
+.arcade-ui #stage #overlay .dialog #arc-overlay-close:active:not(:disabled)::before {transform:translateY(2px) scale(.94)}
+.arcade-ui #stage #overlay .dialog #arc-overlay-close:not([hidden]) {display:block!important}
+.arcade-ui .route-dialog>:is(header,.special-ad-body,.arc-claim-actions) {position:static!important}
+.arcade-ui #stage #arc-card-confirm .arc-claim-actions {grid-template-columns:minmax(0,1fr)}
+.arcade-ui #stage #arc-card-confirm #arc-claim-continue {grid-column:1/-1}
+.arcade-ui #stage #overlay:has(#arc-overlay-close:not([hidden])) #dialog-tag {max-width:calc(100% - 92px)}
+@media(hover:hover) {
+ .arcade-ui .route-dialog button:is([data-close],[data-motion-close],#exit-cancel,#special-ad-back,#arc-claim-back):hover:not(:disabled)::before,
+ .arcade-ui #stage #overlay .dialog #arc-overlay-close:hover:not(:disabled)::before {filter:drop-shadow(0 0 3px #e2fbff);transform:scale(1.06)}
+}
+</style>
+<style id="block-collectibles-style">
+/* Special-block reward presentation only; card and buff surfaces keep their own styles. */
+.arcade-ui #stage #overlay[data-gift=true][data-gift-kind=block] #dialog-copy {display:none}
+.arcade-ui #stage #overlay[data-gift=true][data-gift-kind=block] #dialog-title {margin-bottom:10px}
+.arcade-ui #stage #pixel-gift[data-kind=block] {position:relative;isolation:isolate;overflow:visible}
+.arcade-ui #stage #overlay #pixel-gift[data-kind=block] .block-box-launch {
+ display:flex;flex-direction:column;align-items:center;gap:12px;min-height:0;width:100%;margin:0;padding:12px 4px 20px;
+ background:transparent!important;border:0!important;box-shadow:none!important;color:#344b7e;
+}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-box-launch>strong {font-size:18px;color:#304878}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-box-launch>small {font-size:12px;color:#526e96}
+.block-blindbox {position:relative;display:block;width:204px;height:224px;margin:20px 0 4px}
+.block-box-halo {position:absolute;inset:-18px;background:radial-gradient(circle,#fff8,transparent 67%);pointer-events:none}
+.block-box-shell {position:absolute;inset:38px 3px 0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:24px 12px 10px;border:3px solid #3754b2;border-radius:7px 7px 16px 16px;background:linear-gradient(125deg,#edf9ff 30%,#d5d0ff);box-shadow:inset 0 0 0 3px #fff,0 5px 0 #6c84d4}
+.block-box-shell::before {content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:repeating-conic-gradient(#6a88e033 0 25%,transparent 0 50%) left bottom/12px 12px repeat-x}
+.block-box-series {font-size:9px;color:#516798;letter-spacing:.08em}
+.block-box-window {display:grid;place-items:center;width:90px;height:90px;border:3px solid #4b69bd;border-radius:50%;background:#eaffac;box-shadow:inset 0 0 0 5px #fff,0 3px 0 #7ca2db}
+.block-box-window svg {width:66px;height:66px}
+.block-box-title {font-size:21px;color:#33457b}
+.block-box-footer {display:flex;align-items:center;gap:10px;font-size:9px;color:#516798}
+.block-box-barcode {display:block;width:32px;height:13px;background:repeating-linear-gradient(90deg,#516798 0 2px,transparent 2px 4px,#516798 4px 5px,transparent 5px 7px)}
+.block-box-lid {position:absolute;z-index:3;left:-3px;right:-3px;top:23px;height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 15px;border:3px solid #3754b2;border-radius:9px;background:#c4ff17;box-shadow:inset 0 3px 0 #f0ffb8,0 4px 0 #6e8cdf;color:#314585;transform-origin:20% 50%}
+.block-box-lid>i {position:absolute;left:calc(50% - 25px);bottom:calc(100% + 2px);width:50px;height:22px;border:3px solid #3754b2;border-bottom:0;border-radius:10px 10px 0 0;background:#d9e4ff}
+.block-box-lid>i::after {content:"";position:absolute;left:12px;right:12px;top:6px;height:5px;border-radius:3px;background:#657dad}
+.block-box-lid>span {font-size:10px;letter-spacing:.1em}.block-box-lid>b {font-size:22px}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-pin {
+ position:relative;display:grid;place-items:center;flex:none;width:78px;height:78px;padding:9px;margin:0;
+ border:3px solid #3f5793!important;border-radius:50%;background:linear-gradient(135deg,#fff 35%,#dbeaf9)!important;
+ box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 5px #b0c8e5,0 4px 0 #7188bd,0 5px 0 2px #edfbff!important;
+}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-pin::before {content:"";position:absolute;width:12px;height:11px;left:calc(50% - 8px);top:-12px;border:2px solid #6a80b3;border-radius:5px;background:#d3e6f5;box-shadow:inset 0 0 0 2px #fff;z-index:-1}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-pin svg {width:100%;height:100%;filter:none}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-emerging {position:absolute;z-index:5;left:50%;top:34px;width:66px;height:66px;pointer-events:none}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-reveal-caption {margin:0 0 10px;text-align:center;font-size:12px;color:#526b96}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-badge-tray {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 12px;padding:12px 5px 8px;background:repeating-linear-gradient(0deg,transparent 0 15px,#aecdeb33 15px 16px);border-bottom:1px solid #a1bde1}
+.arcade-ui #stage #overlay #pixel-gift[data-kind=block] .gift-block-card {
+ position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:12px;min-width:0;min-height:150px;width:100%;padding:7px 3px 10px;
+ background:transparent!important;border:2px solid transparent!important;border-radius:13px;box-shadow:none!important;color:#334b80;
+}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-badge-number {font-size:9px;color:#627daa;line-height:1.3}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-badge-name {font-size:13px;line-height:1.5;text-align:center;overflow-wrap:anywhere;color:#344b7e}
+.block-badge-check {position:absolute;right:0;top:30px;display:none;width:21px;height:21px;border:2px solid #4b60b9;border-radius:50%;background:#c4ff17;color:#34487c;font-size:12px;line-height:17px;text-align:center}
+.arcade-ui #stage #overlay #pixel-gift[data-kind=block] .gift-block-card[data-focused=true] {background:#eaffc366!important;border-color:#95bddb!important}
+.arcade-ui #stage #pixel-gift[data-kind=block] .gift-block-card[data-focused=true] .block-pin {box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 5px #b0c8e5,0 0 0 3px #b4ed25,0 5px 0 #738ccc!important}
+.gift-block-card[data-focused=true] .block-badge-check {display:block}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-choice-detail {min-height:106px;margin:0 0 12px;padding:10px 12px;border-left:3px solid #a5d919;background:#f6fbff99;color:#344b7e;text-align:left}
+.block-choice-detail>strong {display:block;margin-bottom:5px;font-size:17px}.block-choice-detail>b {display:block;font-size:12px;color:#4a6ead}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-choice-detail>p {margin:5px 0 0;font-size:12px;line-height:1.7;color:#48618c;white-space:normal}
+.arcade-ui #stage #overlay #pixel-gift[data-kind=block] .block-collect-button {width:100%;min-height:46px;border:2px solid #3454f6!important;border-radius:24px!important;background:#c4ff17!important;color:#2e4379!important;box-shadow:inset 0 0 0 2px #efffa6,0 3px 0 #738ccc!important;font-size:16px}
+.arcade-ui #stage #overlay #pixel-gift[data-kind=block] :is(#reroll-gift,#decline-block-gift) {min-height:44px;margin:7px 0 0;font-size:11px;padding:7px 9px;white-space:normal}
+.arcade-ui #stage #overlay #pixel-gift[data-kind=block] #decline-block-gift {background:transparent!important;border-color:transparent!important;box-shadow:none!important;color:#627aa2}
+.block-display-case {margin-top:14px;padding:9px 10px 11px;border:2px solid #6385c5;border-radius:14px;background:linear-gradient(#eef8ff,#c8dff3);box-shadow:inset 0 0 0 2px #fff,0 3px 0 #8ba9d4;color:#3f588a}
+.block-case-heading {display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding:0 2px;font-size:11px}.block-case-heading>span {font-size:10px}
+.block-case-slots {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.block-case-slot {position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;min-height:68px;padding:8px 3px 4px;border:1px solid #91aed0;border-radius:8px;background:#bdd3e8;box-shadow:inset 0 2px 0 #799bb34d,inset 0 0 0 2px #e5f3ff}
+.block-slot-number {position:absolute;top:3px;left:5px;font-size:8px;color:#5877a5}.block-slot-outline {display:grid;place-items:center;width:32px;height:32px;border:1px dashed #809bc5;border-radius:50%;font-size:21px;color:#849dc1}
+.block-slot-name {display:block;max-width:100%;font-size:9px;line-height:1.4;text-align:center;color:#55739d;overflow-wrap:anywhere}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-case-slot .block-pin {width:38px;height:38px;padding:5px;border-width:2px!important;box-shadow:inset 0 0 0 2px #fff,0 2px 0 #8a9ec7!important}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-case-slot .block-pin::before {width:7px;height:7px;top:-7px;left:calc(50% - 5px)}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-flying {position:absolute;z-index:30;pointer-events:none}
+.block-pin-leaving {visibility:hidden}
+.arcade-ui #stage #pixel-gift[data-collecting-block=true] button:disabled {opacity:1}
+.arcade-ui #stage #pixel-gift[data-kind=block] .block-collection-status {display:grid;place-items:center;min-height:78px;text-align:center}
+@media(min-height:651px) and (max-height:900px) {
+ .arcade-ui #stage #overlay #pixel-gift[data-kind=block] .gift-block-card {min-height:138px;gap:9px}
+ .arcade-ui #stage #pixel-gift[data-kind=block] .block-badge-tray {margin-bottom:8px;padding-top:8px}
+ .arcade-ui #stage #pixel-gift[data-kind=block] .block-choice-detail {min-height:92px;padding-block:8px;margin-bottom:8px}
+ .arcade-ui #stage #pixel-gift[data-kind=block] .block-display-case {margin-top:8px}
+}
+@media(max-width:350px) {
+ .arcade-ui #stage #pixel-gift[data-kind=block] .block-pin {width:62px;height:62px;padding:7px}
+ .arcade-ui #stage #pixel-gift[data-kind=block] .block-badge-tray {gap:4px;padding-inline:0}
+ .arcade-ui #stage #overlay #pixel-gift[data-kind=block] .gift-block-card {min-height:140px}
+ .arcade-ui #stage #pixel-gift[data-kind=block] .block-badge-name {font-size:12px}
+}
+@media(max-height:650px) {
+ .block-blindbox {width:176px;height:205px;margin-top:16px}
+ .block-box-window {width:72px;height:72px}.block-box-window svg {width:54px;height:54px}
+}
+@media(hover:hover) {
+ .arcade-ui #stage #pixel-gift[data-kind=block] .gift-block-card:hover:not(:disabled) .block-pin {filter:brightness(1.05)}
+}
+@media(prefers-reduced-motion:reduce) {
+ .arcade-ui #stage #pixel-gift[data-kind=block] :is(.block-emerging,.block-flying) {display:none}
+}
 </style></head><body class="home-active">
 <!-- Motion tuner: a local extension of the existing home UI, no visual-system redesign.
      Adjust nine bounded parameters, preview without changing a run, restore current defaults. -->
@@ -6370,7 +6489,7 @@ void main() {
 #pixel-gift .pack-emerging-card:after{content:'R';position:absolute;inset:20% 12%;display:grid;place-items:center;background:#315ec6;color:#f4ffac;font-size:42px;font-weight:900;border:2px solid #c4ff17}
 #pixel-gift .pack-open-halo,#pixel-gift .pack-open-beam{mix-blend-mode:normal}
 @media(prefers-reduced-motion:reduce){#pixel-gift :is(.pack-open-halo,.pack-open-beam,.pack-open-mouth,.pack-open-pixel,.pack-emerging-card,.pack-cut){display:none}}
-`;function Fr({root:n,game:e,choose:t,canInteract:i=()=>!0,changed:s=()=>{},play:r=()=>{}}){if(!document.getElementById("gift-pack-style")){let z=document.createElement("style");z.id="gift-pack-style",z.textContent=kr+Ur,document.head.append(z)}q7();let a=null,o=null,c="",l=!1,h=0,d=!1,u=0,m=0,p=!1,v=new Set,f=matchMedia("(prefers-reduced-motion: reduce)"),g=!1,w=new ResizeObserver(()=>W()),b=z=>s1(z,e.pixelCards)||Lt.find(X=>X.id===z),y=()=>e.rewardKind==="block"?"block":"card",A=()=>y()==="block"?ae:pt,M=z=>z==="card"?Object.keys(e.pixelCards||{}).filter(X=>e.pixelCards[X]>0):e.specialBlocks||[],T=()=>e.rewardChoices.filter(z=>A().some(X=>X.id===z)),x=(z,X,r0)=>{let h0=document.createElement(z);return X&&(h0.className=X),r0!=null&&(h0.textContent=r0),h0},E=(z,X,r0,h0)=>{let f0=x("button",r0,z);return f0.type="button",h0&&(f0.id=h0),f0.disabled=l,f0.addEventListener("click",C0=>{!l&&i()&&X(C0)}),f0};function P(z,X,r0={}){if(!z||f.matches||d||document.hidden||!z.animate)return Promise.resolve();let{persist:h0=!1,...f0}=r0,C0=z.animate(X,{duration:260,easing:"cubic-bezier(.2,.8,.2,1)",fill:"both",...f0});return v.add(C0),C0.finished.then(()=>{h0&&z.isConnected&&C0.commitStyles()}).catch(()=>{}).finally(()=>{v.delete(C0),C0.cancel()})}function R(){for(let z of v)z.cancel();v.clear(),u&&cancelAnimationFrame(u),u=0}f.addEventListener("change",()=>{f.matches&&(R(),p0(!0))});function O(){d=!0;for(let z of v)try{z.finish()}catch{z.cancel()}}document.addEventListener("visibilitychange",()=>{document.hidden&&O()});function F(){if(!l)return;let z=x("button","pack-skip","\u8DF3\u8FC7\u5F00\u542F\u52A8\u753B");z.id="skip-gift-animation",z.type="button",z.onclick=O,n.append(z)}function W(){let z=e.rewardKind==="pixel"&&!n.hidden&&!n.closest("#overlay")?.hidden;document.body.classList.toggle("gift-pack-wide",z),n.dataset.layout="row",n.clientWidth!==m&&(m=n.clientWidth,p0(!0),s())}function B(z=!1){if(g||(w.observe(n),g=!0),W(),l)return;let X=T();X.includes(o)||(o=X[0]||null),a&&!X.includes(a)&&(a=null);let r0=[e.stage,e.checkpoint,e.rewardKind,e.giftOpened,X.join(","),e.rewardRerolls,e.canRerollRewards,M("card").join(","),M("block").join(","),a,p].join(":");c!==r0&&(c=r0,Y(z))}function $(){let z=x("div","gift-slots"),X=x("div"),r0=y(),h0=M(r0);X.append(x("b","",(r0==="card"?"\u50CF\u7D20\u5361":"\u65B9\u5757\u88C5\u5907")+" "+h0.length+"/3"));for(let f0=0;f0<3;f0++){let C0=b(h0[f0]),x0=x("span","",C0?.name||"\u7A7A\u69FD");x0.dataset.empty=String(!C0),C0&&(x0.title=C0.effect+"\uFF1B"+C0.description),X.append(x0)}return z.append(X),z}function V(z,X,r0=null){if(l||!i()||z!==null&&!T().includes(z))return;let h0=b(z);if(h0&&r0===null&&(e.giftReplacementNeeded?.(z)||M(h0.kind).length>=3)){a=z,c="",B(!0);return}t(z,X,r0)}function k(){let z=y()==="card",X=E("",()=>Q(),"pack-launch","open-pixel-gift");X.setAttribute("aria-label",z?"\u526A\u5F00\u50CF\u7D20\u5361\u5305":"\u6253\u5F00\u65B9\u683C\u793C\u76D2"),z?X.innerHTML='<span class="foil-packet"><span class="foil-tear"></span><span class="foil-label">OUTLINE \xB7 PIXEL</span><span class="foil-title">\u50CF\u7D20\u5361\u5305</span>'+Ke("mosaic")+'<span class="foil-footer">\u672C\u5C40\u6536\u85CF / \u4E09\u9009\u4E00</span></span><strong>\u6495\u5F00\u50CF\u7D20\u5361\u5305</strong><small>\u5C55\u5F00\u5361\u724C\uFF0C\u6D4F\u89C8\u540E\u9009\u62E9\u4E00\u5F20</small>':X.innerHTML='<span class="box-packet"><svg viewBox="0 0 24 24" aria-hidden="true" shape-rendering="crispEdges"><path fill="#173d54" d="M3 9h18v13H3z"/><path fill="#89cdd0" d="M4 11h16v10H4z"/><path fill="#315764" d="M3 9h18v4H3z"/><path fill="#dcebb2" d="M10 8h4v14h-4z"/><g class="box-lid"><path fill="#cceded" d="M2 6h20v5H2z"/><path fill="#aebf76" d="M10 6h4v5h-4z"/><path fill="#dfeeb7" d="M6 1h5v2h2V1h5v2h2v3H4V3h2z"/><path fill="#436252" d="M7 3h3v2H7zm7 0h3v2h-3z"/></g></svg></span><strong>\u6253\u5F00\u65B9\u683C\u793C\u76D2</strong><small>\u9009\u62E9\u4E00\u79CD\u7279\u6B8A\u65B9\u5757\u52A0\u5165\u672C\u5C40\u6536\u85CF</small>',z&&(X.querySelector("strong").textContent="\u526A\u5F00\u50CF\u7D20\u5361\u5305",X.querySelector("small").textContent="\u70B9\u51FB\u5C01\u53E3\uFF0C\u5C55\u5F00\u4E09\u5F20\u5019\u9009\u5361"),n.append(X),F(),n.append($())}async function Q(){if(l||!i()||!(p?e.rerollRewards():e.openGift()))return;p=!1;let z=++h;if(l=!0,d=f.matches||document.hidden,c="",n.dataset.busy="true",n.querySelector("#open-pixel-gift")?.setAttribute("disabled",""),F(),s(),r("clear"),await Dr({root:n,animate:P,isCard:y()==="card",rarities:T().map(r0=>b(r0).rarity)}),z!==h)return;o=T()[0]||null,Y(!1);let X=[...n.querySelectorAll(".pack-card,.gift-block-card")];await Promise.all(X.map((r0,h0)=>P(r0,[{opacity:0,transform:"translateY(24px) rotateY(-86deg) scale(.94)"},{opacity:1,transform:getComputedStyle(r0).transform}],{duration:290,delay:h0*65}))),z===h&&(l=!1,n.dataset.busy="false",delete n.dataset.opening,c="",B(!0),e0(n.querySelector("[data-focused=true]")),s())}function e0(z){let X=z?.querySelector(".pack-sheen");!X||l||z.dataset.rarity==="R"||P(X,[{transform:"translateX(-160%) rotate(20deg)",opacity:0},{opacity:.4,offset:.35},{transform:"translateX(250%) rotate(20deg)",opacity:0}],{duration:390})}function n0(z,X=!0,r0=!0){if(!T().includes(z))return;o=z;let h0=[...n.querySelectorAll(".pack-card")],f0=h0.findIndex(c0=>c0.dataset.giftId===z);h0.forEach((c0,N0)=>{let U0=N0===f0;c0.dataset.focused=String(U0),c0.setAttribute("aria-pressed",String(U0)),c0.style.zIndex=String(U0?10:N0+1)});let C0=h0[f0],x0=n.querySelector(".pack-position"),s0=n.querySelector("#choose-pixel-card");x0&&(x0.textContent=f0+1+" / "+h0.length+" \xB7 "+b(z)?.name+" \xB7 "+b(z)?.rarity);let u0=n.querySelector(".pack-detail-rules");u0&&(u0.textContent=b(z)?.description||""),s0&&(s0.dataset.giftId=z,s0.setAttribute("aria-label","\u9009\u62E9\u8FD9\u5F20\u5361\uFF1A"+b(z)?.name));let l0=n.querySelector("#gift-prev"),q=n.querySelector("#gift-next");l0&&(l0.disabled=l||f0<=0),q&&(q.disabled=l||f0>=h0.length-1),p0(!X),r0&&e0(C0),s()}function p0(){let z=n.querySelector(".pack-track"),X=[...n.querySelectorAll(".pack-card")];if(!z||!X.length)return;let r0=n.clientWidth<650,h0=r0?8:16,f0=Math.min(248,(n.clientWidth-16-h0*(X.length-1))/X.length);n.style.setProperty("--pack-card-width",Math.max(40,f0)+"px"),z.style.setProperty("--pack-columns",X.length),z.dataset.compact=String(r0)}function T0(){let z=x("div","pack-browser"),X=x("div","pack-track");X.setAttribute("aria-label","\u4E09\u5F20\u50CF\u7D20\u5361\u5019\u9009");let r0=T();for(let f0 of r0){let C0=b(f0),x0=E("",()=>n0(f0),"gift-card pack-card tcg-card");x0.dataset.giftId=f0,x0.dataset.kind="card",x0.dataset.rarity=C0.rarity,x0.innerHTML=U1(C0),x0.setAttribute("aria-label","\u6D4F\u89C8\u300C"+C0.name+"\u300D"+C0.rarity+"\uFF1A"+C0.effect+"\u3002"+C0.description),U3(x0,()=>!l&&x0.dataset.focused==="true"),X.append(x0),x0.bindPreview=s0=>U3(s0,()=>!l&&!s0.closest("[data-collecting=true]"),{keyboard:!0}),x0.addEventListener("focus",()=>{l||n0(f0)})}X.addEventListener("keydown",f0=>{if(l||!i()||!["ArrowLeft","ArrowRight","Home","End"].includes(f0.key))return;f0.preventDefault(),f0.stopPropagation();let C0=r0.indexOf(o),x0=f0.key==="Home"?0:f0.key==="End"?r0.length-1:Math.max(0,Math.min(r0.length-1,C0+(f0.key==="ArrowRight"?1:-1)));n0(r0[x0]),X.children[x0].focus({preventScroll:!0})});let h0=x("section","pack-detail");h0.setAttribute("aria-live","polite"),h0.append(x("h3","pack-position"),x("p","pack-detail-rules")),z.append(X,h0),n.append(z,E("\u9009\u62E9\u8FD9\u5F20\u5361",f0=>V(o,f0),"pack-confirm","choose-pixel-card"),x("p","pack-note","\u70B9\u51FB\u5361\u724C\u67E5\u770B\u6548\u679C \xB7 \u786E\u8BA4\u540E\u9886\u53D6")),n0(o||r0[0],!1,!1),F()}function Y0(){let z=x("div","gift-block-list");for(let X of T()){let r0=b(X),h0=E("",f0=>V(X,f0),"gift-card gift-block-card");h0.dataset.giftId=X,h0.dataset.kind="block",h0.innerHTML='<span class="block-art">'+Ke(r0.glyph)+'</span><span class="block-copy"><strong>'+r0.name+"</strong><b>"+r0.effect+"</b><span>"+r0.description+"</span></span>",h0.setAttribute("aria-label","\u9009\u62E9\u300C"+r0.name+"\u300D\uFF1A"+r0.effect+"\u3002"+r0.description),z.append(h0)}n.append(z),F()}function ownedCardChoice(card,incoming){
+`;function Fr({root:n,game:e,choose:t,canInteract:i=()=>!0,changed:s=()=>{},play:r=()=>{}}){if(!document.getElementById("gift-pack-style")){let z=document.createElement("style");z.id="gift-pack-style",z.textContent=kr+Ur,document.head.append(z)}q7();let a=null,o=null,c="",l=!1,h=0,d=!1,u=0,m=0,p=!1,v=new Set,f=matchMedia("(prefers-reduced-motion: reduce)"),g=!1,w=new ResizeObserver(()=>W()),b=z=>s1(z,e.pixelCards)||Lt.find(X=>X.id===z),y=()=>e.rewardKind==="block"?"block":"card",A=()=>y()==="block"?ae:pt,M=z=>z==="card"?Object.keys(e.pixelCards||{}).filter(X=>e.pixelCards[X]>0):e.specialBlocks||[],T=()=>e.rewardChoices.filter(z=>A().some(X=>X.id===z)),x=(z,X,r0)=>{let h0=document.createElement(z);return X&&(h0.className=X),r0!=null&&(h0.textContent=r0),h0},E=(z,X,r0,h0)=>{let f0=x("button",r0,z);return f0.type="button",h0&&(f0.id=h0),f0.disabled=l,f0.addEventListener("click",C0=>{!l&&i()&&X(C0)}),f0};function P(z,X,r0={}){if(!z||f.matches||d||document.hidden||!z.animate)return Promise.resolve();let{persist:h0=!1,...f0}=r0,C0=z.animate(X,{duration:260,easing:"cubic-bezier(.2,.8,.2,1)",fill:"both",...f0});return v.add(C0),C0.finished.then(()=>{h0&&z.isConnected&&C0.commitStyles()}).catch(()=>{}).finally(()=>{v.delete(C0),C0.cancel()})}function R(){for(let z of v)z.cancel();v.clear(),u&&cancelAnimationFrame(u),u=0}f.addEventListener("change",()=>{f.matches&&(R(),p0(!0))});function O(){d=!0;for(let z of v)try{z.finish()}catch{z.cancel()}}document.addEventListener("visibilitychange",()=>{document.hidden&&O()});function F(){if(!l)return;let z=x("button","pack-skip","\u8DF3\u8FC7\u5F00\u542F\u52A8\u753B");z.id="skip-gift-animation",z.type="button",z.onclick=O,n.append(z)}function W(){let z=e.rewardKind==="pixel"&&!n.hidden&&!n.closest("#overlay")?.hidden;document.body.classList.toggle("gift-pack-wide",z),n.dataset.layout="row",n.clientWidth!==m&&(m=n.clientWidth,p0(!0),s())}function B(z=!1){if(g||(w.observe(n),g=!0),W(),l)return;let X=T();X.includes(o)||(o=X[0]||null),a&&!X.includes(a)&&(a=null);let r0=[e.stage,e.checkpoint,e.rewardKind,e.giftOpened,X.join(","),e.rewardRerolls,e.canRerollRewards,M("card").join(","),M("block").join(","),a,p].join(":");c!==r0&&(c=r0,Y(z))}function $(){if(y()==="block")return blockCase();let z=x("div","gift-slots"),X=x("div"),r0=y(),h0=M(r0);X.append(x("b","",(r0==="card"?"\u50CF\u7D20\u5361":"\u65B9\u5757\u88C5\u5907")+" "+h0.length+"/3"));for(let f0=0;f0<3;f0++){let C0=b(h0[f0]),x0=x("span","",C0?.name||"\u7A7A\u69FD");x0.dataset.empty=String(!C0),C0&&(x0.title=C0.effect+"\uFF1B"+C0.description),X.append(x0)}return z.append(X),z}function V(z,X,r0=null){if(l||!i()||z!==null&&!T().includes(z))return;let h0=b(z);if(h0&&r0===null&&(e.giftReplacementNeeded?.(z)||M(h0.kind).length>=3)){a=z,c="",B(!0);return}h0?.kind==="block"?collectBlock(h0,X,r0):t(z,X,r0)}function k(){let z=y()==="card",X=E("",()=>Q(),"pack-launch","open-pixel-gift");X.setAttribute("aria-label",z?"\u526A\u5F00\u50CF\u7D20\u5361\u5305":"\u6253\u5F00\u65B9\u683C\u793C\u76D2"),z?X.innerHTML='<span class="foil-packet"><span class="foil-tear"></span><span class="foil-label">OUTLINE \xB7 PIXEL</span><span class="foil-title">\u50CF\u7D20\u5361\u5305</span>'+Ke("mosaic")+'<span class="foil-footer">\u672C\u5C40\u6536\u85CF / \u4E09\u9009\u4E00</span></span><strong>\u6495\u5F00\u50CF\u7D20\u5361\u5305</strong><small>\u5C55\u5F00\u5361\u724C\uFF0C\u6D4F\u89C8\u540E\u9009\u62E9\u4E00\u5F20</small>':X.innerHTML='<span class="box-packet"><svg viewBox="0 0 24 24" aria-hidden="true" shape-rendering="crispEdges"><path fill="#173d54" d="M3 9h18v13H3z"/><path fill="#89cdd0" d="M4 11h16v10H4z"/><path fill="#315764" d="M3 9h18v4H3z"/><path fill="#dcebb2" d="M10 8h4v14h-4z"/><g class="box-lid"><path fill="#cceded" d="M2 6h20v5H2z"/><path fill="#aebf76" d="M10 6h4v5h-4z"/><path fill="#dfeeb7" d="M6 1h5v2h2V1h5v2h2v3H4V3h2z"/><path fill="#436252" d="M7 3h3v2H7zm7 0h3v2h-3z"/></g></svg></span><strong>\u6253\u5F00\u65B9\u683C\u793C\u76D2</strong><small>\u9009\u62E9\u4E00\u79CD\u7279\u6B8A\u65B9\u5757\u52A0\u5165\u672C\u5C40\u6536\u85CF</small>',z&&(X.querySelector("strong").textContent="\u526A\u5F00\u50CF\u7D20\u5361\u5305",X.querySelector("small").textContent="\u70B9\u51FB\u5C01\u53E3\uFF0C\u5C55\u5F00\u4E09\u5F20\u5019\u9009\u5361"),z||blockBox(X),n.append(X),F(),n.append($())}async function Q(){if(l||!i()||!(p?e.rerollRewards():e.openGift()))return;p=!1;let z=++h;if(l=!0,d=f.matches||document.hidden,c="",n.dataset.busy="true",n.querySelector("#open-pixel-gift")?.setAttribute("disabled",""),F(),s(),r("clear"),await (y()==="block"?openBlockBox():Dr({root:n,animate:P,isCard:true,rarities:T().map(r0=>b(r0).rarity)})),z!==h)return;o=T()[0]||null,Y(!1);let X=[...n.querySelectorAll(".pack-card,.gift-block-card")];await Promise.all(X.map((r0,h0)=>P(r0,[{opacity:0,transform:y()==="block"?"translateY(28px) scale(.75)":"translateY(24px) rotateY(-86deg) scale(.94)"},{opacity:1,transform:getComputedStyle(r0).transform}],{duration:290,delay:h0*65}))),z===h&&(l=!1,n.dataset.busy="false",delete n.dataset.opening,c="",B(!0),e0(n.querySelector("[data-focused=true]")),s())}function e0(z){let X=z?.querySelector(".pack-sheen");!X||l||z.dataset.rarity==="R"||P(X,[{transform:"translateX(-160%) rotate(20deg)",opacity:0},{opacity:.4,offset:.35},{transform:"translateX(250%) rotate(20deg)",opacity:0}],{duration:390})}function n0(z,X=!0,r0=!0){if(!T().includes(z))return;o=z;let h0=[...n.querySelectorAll(".pack-card")],f0=h0.findIndex(c0=>c0.dataset.giftId===z);h0.forEach((c0,N0)=>{let U0=N0===f0;c0.dataset.focused=String(U0),c0.setAttribute("aria-pressed",String(U0)),c0.style.zIndex=String(U0?10:N0+1)});let C0=h0[f0],x0=n.querySelector(".pack-position"),s0=n.querySelector("#choose-pixel-card");x0&&(x0.textContent=f0+1+" / "+h0.length+" \xB7 "+b(z)?.name+" \xB7 "+b(z)?.rarity);let u0=n.querySelector(".pack-detail-rules");u0&&(u0.textContent=b(z)?.description||""),s0&&(s0.dataset.giftId=z,s0.setAttribute("aria-label","\u9009\u62E9\u8FD9\u5F20\u5361\uFF1A"+b(z)?.name));let l0=n.querySelector("#gift-prev"),q=n.querySelector("#gift-next");l0&&(l0.disabled=l||f0<=0),q&&(q.disabled=l||f0>=h0.length-1),p0(!X),r0&&e0(C0),s()}function p0(){let z=n.querySelector(".pack-track"),X=[...n.querySelectorAll(".pack-card")];if(!z||!X.length)return;let r0=n.clientWidth<650,h0=r0?8:16,f0=Math.min(248,(n.clientWidth-16-h0*(X.length-1))/X.length);n.style.setProperty("--pack-card-width",Math.max(40,f0)+"px"),z.style.setProperty("--pack-columns",X.length),z.dataset.compact=String(r0)}function T0(){let z=x("div","pack-browser"),X=x("div","pack-track");X.setAttribute("aria-label","\u4E09\u5F20\u50CF\u7D20\u5361\u5019\u9009");let r0=T();for(let f0 of r0){let C0=b(f0),x0=E("",()=>n0(f0),"gift-card pack-card tcg-card");x0.dataset.giftId=f0,x0.dataset.kind="card",x0.dataset.rarity=C0.rarity,x0.innerHTML=U1(C0),x0.setAttribute("aria-label","\u6D4F\u89C8\u300C"+C0.name+"\u300D"+C0.rarity+"\uFF1A"+C0.effect+"\u3002"+C0.description),U3(x0,()=>!l&&x0.dataset.focused==="true"),X.append(x0),x0.bindPreview=s0=>U3(s0,()=>!l&&!s0.closest("[data-collecting=true]"),{keyboard:!0}),x0.addEventListener("focus",()=>{l||n0(f0)})}X.addEventListener("keydown",f0=>{if(l||!i()||!["ArrowLeft","ArrowRight","Home","End"].includes(f0.key))return;f0.preventDefault(),f0.stopPropagation();let C0=r0.indexOf(o),x0=f0.key==="Home"?0:f0.key==="End"?r0.length-1:Math.max(0,Math.min(r0.length-1,C0+(f0.key==="ArrowRight"?1:-1)));n0(r0[x0]),X.children[x0].focus({preventScroll:!0})});let h0=x("section","pack-detail");h0.setAttribute("aria-live","polite"),h0.append(x("h3","pack-position"),x("p","pack-detail-rules")),z.append(X,h0),n.append(z,E("\u9009\u62E9\u8FD9\u5F20\u5361",f0=>V(o,f0),"pack-confirm","choose-pixel-card"),x("p","pack-note","\u70B9\u51FB\u5361\u724C\u67E5\u770B\u6548\u679C \xB7 \u786E\u8BA4\u540E\u9886\u53D6")),n0(o||r0[0],!1,!1),F()}function ownedCardChoice(card,incoming){
  const item=x("article","arc-replacement-option"),face=x("div","tcg-card arc-replacement-card"),copy=x("section","arc-card-description"),title=x("h3","arc-replacement-title",card.name),rarity=x("span","arc-replacement-rarity",card.rarity);
  item.dataset.ownedCard=card.id;title.id="replace-card-"+card.id;item.setAttribute("aria-labelledby",title.id);
  face.dataset.rarity=card.rarity;face.innerHTML=U1(card);face.tabIndex=0;face.setAttribute("aria-label",card.name+"，"+card.rarity+"，卡面预览");U3(face,()=>!l,{keyboard:!0});
@@ -6378,7 +6497,89 @@ void main() {
  const action=E("替换这张卡",event=>V(incoming.id,event,card.id),"gift-delete arc-replacement-action");action.dataset.delete=card.id;action.dataset.replaceName=card.name;action.setAttribute("aria-label","替换「"+card.name+"」"+card.rarity+"，获得「"+incoming.name+"」");
  item.append(face,copy,action);return item;
 }
-function D0(){let z=b(a),X=z.kind==="card";n.append(x("p","gift-rule",(X?"\u50CF\u7D20\u5361\u69FD\u5DF2\u6EE1\uFF0C\u8BF7\u9009\u62E9\u4E00\u5F20\u65E7\u5361\u66FF\u6362\u3002":"\u65B9\u5757\u88C5\u5907\u5DF2\u6EE1\uFF0C\u79FB\u51FA\u4E00\u79CD\u65E7\u88C5\u5907\uFF1B\u5B83\u4ECD\u4FDD\u7559\u5728\u672C\u5C40\u6536\u85CF\u4E2D\u3002")+"\u5C06\u83B7\u5F97\u300C"+z.name+"\u300D\u3002"));let r0=x("div","gift-replacements");for(let h0 of M(z.kind)){let f0=b(h0);if(X){r0.append(ownedCardChoice(f0,z));continue}let C0=E("",x0=>V(z.id,x0,h0),"gift-delete");C0.dataset.delete=h0,C0.innerHTML=Ke(f0?.glyph)+"<span>"+(X?"\u66FF\u6362\u300C":"\u79FB\u51FA\u88C5\u5907\u300C")+(f0?.name||h0)+"\u300D</span>",C0.setAttribute("aria-label",(X?"\u66FF\u6362":"\u79FB\u51FA\u88C5\u5907\u5E76\u4FDD\u7559\u672C\u5C40\u6536\u85CF\uFF1A")+(f0?.name||h0)+"\uFF0C\u83B7\u5F97"+z.name),r0.append(C0)}n.append(r0,E("\u53D6\u6D88\uFF0C\u7EE7\u7EED\u6D4F\u89C8",()=>{a=null,c="",B(!0)},"reroll-button","cancel-replace-gift"));X||n.append($());n.closest(".dialog").scrollTop=0}function Y(z=!1){n.replaceChildren(),n.dataset.kind=y(),n.dataset.open=String(e.giftOpened&&!p),n.dataset.busy=String(l),n.dataset.replacing=String(!!a);let X=n.closest("#overlay");if(X&&(X.dataset.giftKind=y()),!e.giftOpened||p)k();else if(a)D0();else if(T().length){y()==="card"?T0():Y0();let r0=!!e.canRerollRewards,h0=r0?"\u6362\u4E00\u7EC4 \xB7 \u514D\u8D39 1 \u6B21":e.rewardRerolls?"\u6682\u65E0\u5176\u4ED6\u5956\u52B1\u53EF\u6362":"\u672C\u6B21\u5237\u65B0\u5DF2\u7528\u5B8C",f0=E(h0,()=>{e.canRerollRewards&&(p=!0,a=null,r("ui"),c="",B(!0))},"reroll-button","reroll-gift");if(f0.disabled=l||!r0,n.append(f0),e.canSkipGift){let C0=y()==="block",x0=C0?"\u653E\u5F03\u672C\u6B21\u65B9\u5757\uFF0C\u76F4\u63A5\u8FDB\u5165\u4E0B\u4E00\u9636\u6BB5":"\u653E\u5F03\u672C\u6B21\u5361\u724C\uFF0C\u4FDD\u7559\u73B0\u6709\u642D\u914D";n.append(E(x0,s0=>V(null,s0),"reroll-button",C0?"decline-block-gift":"decline-pixel-gift"))}n.append($())}else{let r0=x("div","gift-empty");r0.append(x("strong","",y()==="block"?"\u672C\u5C40\u65B9\u5757\u5DF2\u96C6\u9F50":"\u65E0\u65B0\u5956\u52B1"),x("p","",y()==="block"?"\u5DF2\u6536\u85CF\u7684\u65B9\u5757\u4ECD\u53EF\u5728\u672C\u5C40\u4E2D\u88C5\u5907\u3002":"\u7EE7\u7EED\u6311\u6218\u4E0B\u4E00\u9636\u6BB5\u3002")),n.append(r0,E("\u7EE7\u7EED\u6311\u6218",h0=>V(null,h0),"pack-confirm","continue-gift"),$())}s(),z&&(n.querySelector(y()==="card"?"#choose-pixel-card:not(:disabled)":"button:not(:disabled)")||n.querySelector("button:not(:disabled)"))?.focus({preventScroll:!0})}return{sync:B,get busy(){return l},askReplace(z){l||!T().includes(z)||(a=z,o=z,c="",B(!0))},reset(){h++,l=!1,d=!0,a=null,o=null,p=!1,c="",m=0,R(),w.disconnect(),g=!1,document.body.classList.remove("gift-pack-wide"),n.replaceChildren(),n.dataset.busy="false",n.dataset.replacing="false",n.dataset.layout="row",delete n.dataset.opening,n.hidden=!0,s()}}}var Y7=class{constructor(e,t){let i=document.createElement("canvas");i.width=ae.length*16,i.height=16;let s=i.getContext("2d");ae.forEach((o,c)=>{s.fillStyle="#17315a",s.fillRect(c*16,0,16,16),s.fillStyle="#e8ffae",S5[o.glyph].forEach((l,h)=>[...l].forEach((d,u)=>{d==="1"&&s.fillRect(c*16+4+u,4+h,1,1)}))}),this.texture=new A3(i),this.texture.magFilter=this.texture.minFilter=Ae,this.texture.generateMipmaps=!1;let r=new Pe(1,1);this.kinds=new Float32Array(t),r.setAttribute("aKind",new je(this.kinds,1));let a=new we({uniforms:{atlas:{value:this.texture},atlasCount:{value:ae.length}},vertexShader:"uniform float atlasCount;attribute float aKind;varying vec2 vUv;void main(){vUv=vec2((uv.x+aKind)/atlasCount,uv.y);gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}",fragmentShader:"uniform sampler2D atlas;varying vec2 vUv;void main(){gl_FragColor=texture2D(atlas,vUv);}",depthTest:!1});this.mesh=new ut(r,a,t),this.mesh.frustumCulled=!1,this.mesh.renderOrder=3,this.mesh.count=0,e.add(this.mesh),this.matrix=new oe,this.scale=new U}begin(){this.mesh.count=0}add(e,t,i,s,r,a){let o=ae.findIndex(l=>l.id===e.effect);if(o<0)return;let c=this.mesh.count++;this.kinds[c]=o,this.matrix.makeRotationZ(a),this.matrix.scale(this.scale.setScalar(r*.52)),this.matrix.setPosition(t,i,s+.3),this.mesh.setMatrixAt(c,this.matrix)}finish(){this.mesh.instanceMatrix.needsUpdate=!0,this.mesh.geometry.attributes.aKind.needsUpdate=!0}dispose(){this.mesh.geometry.dispose(),this.mesh.material.dispose(),this.texture.dispose()}};var ff=`varying vec2 vUv; varying vec3 vColor; attribute float aFade; varying float vFade;
+// Special-block collectibles share the original reward state and commit callback.
+function blockBadge(item,extra=""){
+ const badge=x("span","block-art block-pin "+extra);
+ badge.setAttribute("aria-hidden","true");badge.innerHTML=Ke(item.glyph);
+ badge.dataset.blockId=item.id;return badge;
+}
+function blockCase(owned=M("block")){
+ const box=x("section","block-display-case"),heading=x("div","block-case-heading"),slots=x("div","block-case-slots");
+ box.setAttribute("aria-label","本局方块展示盒");heading.append(x("strong","","本局展示盒"),x("span","",owned.length+" / 3"));
+ for(let index=0;index<3;index++){
+  const item=b(owned[index]),slot=x("div","block-case-slot");slot.dataset.slot=String(index);slot.dataset.empty=String(!item);
+  slot.append(x("small","block-slot-number",String(index+1).padStart(2,"0")));
+  if(item){slot.dataset.blockId=item.id;slot.append(blockBadge(item),x("span","block-slot-name",item.name.replace(/方块$/,"")));}
+  else slot.append(x("span","block-slot-outline","＋"),x("span","block-slot-name","待收藏"));
+  slots.append(slot);
+ }
+ box.append(heading,slots);return box;
+}
+function blockBox(button){
+ button.classList.add("block-box-launch");button.setAttribute("aria-label","打开像素徽章盲盒");button.replaceChildren();
+ const box=x("span","block-blindbox");box.setAttribute("aria-hidden","true");
+ box.innerHTML='<span class="block-box-halo"></span><span class="block-box-shell"><span class="block-box-series">ROTATION · BLOCKS</span><span class="block-box-window">'+Ke("star")+'</span><span class="block-box-title">像素徽章</span><span class="block-box-footer">三选一 / 本局收藏<span class="block-box-barcode"></span></span></span><span class="block-box-lid"><i></i><span>OPEN HERE</span><b>↗</b></span>';
+ button.append(box,x("strong","","拆开一盒小惊喜"),x("small","","打开盲盒，挑一枚徽章带走"));
+}
+async function openBlockBox(){
+ const box=n.querySelector(".block-blindbox");if(!box)return;n.dataset.opening="press";
+ await P(box,[{transform:"scale(1)"},{transform:"translateY(4px) scale(.96)"},{transform:"scale(1)"}],{duration:180});
+ if(!box.isConnected)return;n.dataset.opening="lid";
+ const lid=box.querySelector(".block-box-lid"),shell=box.querySelector(".block-box-shell");
+ const lidMotion=P(lid,[{transform:"translateY(0)",opacity:1},{transform:"translateY(-56px) rotate(-9deg)",opacity:0}],{duration:320,persist:true});
+ const emerging=T().map((id,index)=>{
+  const badge=blockBadge(b(id),"block-emerging");box.append(badge);const offset=(index-1)*76;
+  return P(badge,[{transform:"translate(-50%,20px) scale(.4)",opacity:0},{transform:`translate(calc(-50% + ${offset}px),-65px) scale(1)`,opacity:1,offset:.65},{transform:`translate(calc(-50% + ${offset}px),-82px) scale(.95)`,opacity:0}],{duration:530,delay:index*65});
+ });
+ await Promise.all([lidMotion,...emerging]);
+ if(box.isConnected)await P(shell,[{opacity:1,transform:"translateY(0)"},{opacity:0,transform:"translateY(18px)"}],{duration:150});
+}
+function selectBlock(id){
+ if(!T().includes(id))return;o=id;const item=b(id);
+ for(const button of n.querySelectorAll(".gift-block-card")){
+  const selected=button.dataset.giftId===id;button.dataset.focused=String(selected);button.setAttribute("aria-pressed",String(selected));
+ }
+ n.querySelector(".block-choice-detail")?.replaceChildren(x("strong","",item.name),x("b","",item.effect),x("p","",item.description));
+ const collect=n.querySelector("#collect-block-badge");if(collect){collect.dataset.giftId=id;collect.setAttribute("aria-label","收进展示盒："+item.name);}
+}
+function blockChoices(){
+ const tray=x("div","gift-block-list block-badge-tray"),caption=x("p","block-reveal-caption","三枚小惊喜，挑一枚收藏"),detail=x("section","block-choice-detail");
+ tray.setAttribute("role","group");tray.setAttribute("aria-label","选择一枚特殊方块徽章");detail.setAttribute("aria-live","polite");detail.setAttribute("aria-atomic","true");
+ for(const id of T()){
+  const item=b(id),button=E("",()=>selectBlock(id),"gift-card gift-block-card");button.dataset.giftId=id;button.dataset.kind="block";
+  button.append(x("small","block-badge-number","NO. "+String(ae.findIndex(entry=>entry.id===id)+1).padStart(2,"0")),blockBadge(item),x("strong","block-badge-name",item.name.replace(/方块$/,"")),x("span","block-badge-check","✓"));
+  button.setAttribute("aria-label",item.name+"："+item.effect);tray.append(button);
+ }
+ n.append(caption,tray,detail,E("收进展示盒",event=>V(o,event),"block-collect-button","collect-block-badge"));selectBlock(o||T()[0]);F();
+}
+async function collectBlock(item,event,replaced){
+ if(l||!i())return;const generation=++h;l=true;d=f.matches||document.hidden;n.dataset.busy="true";n.dataset.collectingBlock="true";
+ const index=replaced===null?M("block").length:M("block").length-1;
+ if(replaced!==null)n.querySelector(".block-display-case")?.replaceWith(blockCase(M("block").filter(id=>id!==replaced)));
+ n.querySelectorAll("button").forEach(button=>button.disabled=true);
+ const source=n.querySelector('.gift-block-card[data-gift-id="'+item.id+'"] .block-pin'),from=source?.getBoundingClientRect();
+ const slot=n.querySelector('.block-case-slot[data-slot="'+index+'"]');
+ const message=x("p","block-collection-status","正在收好「"+item.name.replace(/方块$/,"")+"」…");message.setAttribute("role","status");
+ const detail=n.querySelector(".block-choice-detail");
+ if(detail)detail.replaceChildren(message);else n.insertBefore(message,n.querySelector(".block-display-case"));
+ const flying=blockBadge(item,"block-flying"),rootRect=n.getBoundingClientRect();n.append(flying);
+ const target=slot?.getBoundingClientRect(),originX=from?from.left+from.width/2-rootRect.left+n.scrollLeft:n.clientWidth/2,originY=from?from.top+from.height/2-rootRect.top+n.scrollTop:70+n.scrollTop;
+ flying.style.left=originX+"px";flying.style.top=originY+"px";
+ const dx=target?target.left+target.width/2-rootRect.left+n.scrollLeft-originX:0,dy=target?target.top+target.height/2-rootRect.top+n.scrollTop-originY:100;
+ source?.classList.add("block-pin-leaving");r("ui");
+ try{
+  await P(flying,[{transform:"translate(-50%,-50%) scale(1)"},{transform:"translate(-50%,calc(-50% - 24px)) scale(1.18)",offset:.24},{transform:`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px)) scale(.55)`}],{duration:620,persist:true});
+  if(generation!==h)return;
+  if(slot){slot.dataset.empty="false";slot.dataset.blockId=item.id;slot.replaceChildren(x("small","block-slot-number",String(index+1).padStart(2,"0")),blockBadge(item),x("span","block-slot-name",item.name.replace(/方块$/,"")));const count=n.querySelector(".block-case-heading>span");if(count)count.textContent=Math.min(3,M("block").length+(replaced===null?1:0))+" / 3";flying.remove();message.textContent="已收好，继续出发";await P(slot,[{backgroundColor:"#d4ff67",transform:"scale(.95)"},{backgroundColor:"#eaf9ff",transform:"scale(1)"}],{duration:260});}
+  if(generation!==h)return;
+  // The original callback alone validates and commits the reward.
+  l=false;n.dataset.busy="false";delete n.dataset.collectingBlock;t(item.id,event,replaced);
+ }finally{
+  flying.remove();source?.classList.remove("block-pin-leaving");
+  if(generation===h){l=false;n.dataset.busy="false";delete n.dataset.collectingBlock;c="";B(true);}
+ }
+}
+function D0(){let z=b(a),X=z.kind==="card";n.append(x("p","gift-rule",(X?"\u50CF\u7D20\u5361\u69FD\u5DF2\u6EE1\uFF0C\u8BF7\u9009\u62E9\u4E00\u5F20\u65E7\u5361\u66FF\u6362\u3002":"\u65B9\u5757\u88C5\u5907\u5DF2\u6EE1\uFF0C\u79FB\u51FA\u4E00\u79CD\u65E7\u88C5\u5907\uFF1B\u5B83\u4ECD\u4FDD\u7559\u5728\u672C\u5C40\u6536\u85CF\u4E2D\u3002")+"\u5C06\u83B7\u5F97\u300C"+z.name+"\u300D\u3002"));let r0=x("div","gift-replacements");for(let h0 of M(z.kind)){let f0=b(h0);if(X){r0.append(ownedCardChoice(f0,z));continue}let C0=E("",x0=>V(z.id,x0,h0),"gift-delete");C0.dataset.delete=h0,C0.innerHTML=Ke(f0?.glyph)+"<span>"+(X?"\u66FF\u6362\u300C":"\u79FB\u51FA\u88C5\u5907\u300C")+(f0?.name||h0)+"\u300D</span>",C0.setAttribute("aria-label",(X?"\u66FF\u6362":"\u79FB\u51FA\u88C5\u5907\u5E76\u4FDD\u7559\u672C\u5C40\u6536\u85CF\uFF1A")+(f0?.name||h0)+"\uFF0C\u83B7\u5F97"+z.name),r0.append(C0)}n.append(r0,E("\u53D6\u6D88\uFF0C\u7EE7\u7EED\u6D4F\u89C8",()=>{a=null,c="",B(!0)},"reroll-button","cancel-replace-gift"));X||n.append($());n.closest(".dialog").scrollTop=0}function Y(z=!1){n.replaceChildren(),n.dataset.kind=y(),n.dataset.open=String(e.giftOpened&&!p),n.dataset.busy=String(l),n.dataset.replacing=String(!!a);let X=n.closest("#overlay");if(X&&(X.dataset.giftKind=y()),!e.giftOpened||p)k();else if(a)D0();else if(T().length){y()==="card"?T0():blockChoices();let r0=!!e.canRerollRewards,h0=r0?"\u6362\u4E00\u7EC4 \xB7 \u514D\u8D39 1 \u6B21":e.rewardRerolls?"\u6682\u65E0\u5176\u4ED6\u5956\u52B1\u53EF\u6362":"\u672C\u6B21\u5237\u65B0\u5DF2\u7528\u5B8C",f0=E(h0,()=>{e.canRerollRewards&&(p=!0,a=null,r("ui"),c="",B(!0))},"reroll-button","reroll-gift");if(f0.disabled=l||!r0,n.append(f0),e.canSkipGift){let C0=y()==="block",x0=C0?"\u653E\u5F03\u672C\u6B21\u65B9\u5757\uFF0C\u76F4\u63A5\u8FDB\u5165\u4E0B\u4E00\u9636\u6BB5":"\u653E\u5F03\u672C\u6B21\u5361\u724C\uFF0C\u4FDD\u7559\u73B0\u6709\u642D\u914D";n.append(E(x0,s0=>V(null,s0),"reroll-button",C0?"decline-block-gift":"decline-pixel-gift"))}n.append($())}else{let r0=x("div","gift-empty");r0.append(x("strong","",y()==="block"?"\u672C\u5C40\u65B9\u5757\u5DF2\u96C6\u9F50":"\u65E0\u65B0\u5956\u52B1"),x("p","",y()==="block"?"\u5DF2\u6536\u85CF\u7684\u65B9\u5757\u4ECD\u53EF\u5728\u672C\u5C40\u4E2D\u88C5\u5907\u3002":"\u7EE7\u7EED\u6311\u6218\u4E0B\u4E00\u9636\u6BB5\u3002")),n.append(r0,E("\u7EE7\u7EED\u6311\u6218",h0=>V(null,h0),"pack-confirm","continue-gift"),$())}s(),z&&(n.querySelector(y()==="card"?"#choose-pixel-card:not(:disabled)":"button:not(:disabled)")||n.querySelector("button:not(:disabled)"))?.focus({preventScroll:!0})}return{sync:B,get busy(){return l},askReplace(z){l||!T().includes(z)||(a=z,o=z,c="",B(!0))},reset(){h++,l=!1,d=!0,a=null,o=null,p=!1,c="",m=0,R(),w.disconnect(),g=!1,document.body.classList.remove("gift-pack-wide"),n.replaceChildren(),n.dataset.busy="false",n.dataset.replacing="false",n.dataset.layout="row",delete n.dataset.opening,delete n.dataset.collectingBlock,n.hidden=!0,s()}}}var Y7=class{constructor(e,t){let i=document.createElement("canvas");i.width=ae.length*16,i.height=16;let s=i.getContext("2d");ae.forEach((o,c)=>{s.fillStyle="#17315a",s.fillRect(c*16,0,16,16),s.fillStyle="#e8ffae",S5[o.glyph].forEach((l,h)=>[...l].forEach((d,u)=>{d==="1"&&s.fillRect(c*16+4+u,4+h,1,1)}))}),this.texture=new A3(i),this.texture.magFilter=this.texture.minFilter=Ae,this.texture.generateMipmaps=!1;let r=new Pe(1,1);this.kinds=new Float32Array(t),r.setAttribute("aKind",new je(this.kinds,1));let a=new we({uniforms:{atlas:{value:this.texture},atlasCount:{value:ae.length}},vertexShader:"uniform float atlasCount;attribute float aKind;varying vec2 vUv;void main(){vUv=vec2((uv.x+aKind)/atlasCount,uv.y);gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}",fragmentShader:"uniform sampler2D atlas;varying vec2 vUv;void main(){gl_FragColor=texture2D(atlas,vUv);}",depthTest:!1});this.mesh=new ut(r,a,t),this.mesh.frustumCulled=!1,this.mesh.renderOrder=3,this.mesh.count=0,e.add(this.mesh),this.matrix=new oe,this.scale=new U}begin(){this.mesh.count=0}add(e,t,i,s,r,a){let o=ae.findIndex(l=>l.id===e.effect);if(o<0)return;let c=this.mesh.count++;this.kinds[c]=o,this.matrix.makeRotationZ(a),this.matrix.scale(this.scale.setScalar(r*.52)),this.matrix.setPosition(t,i,s+.3),this.mesh.setMatrixAt(c,this.matrix)}finish(){this.mesh.instanceMatrix.needsUpdate=!0,this.mesh.geometry.attributes.aKind.needsUpdate=!0}dispose(){this.mesh.geometry.dispose(),this.mesh.material.dispose(),this.texture.dispose()}};var ff=`varying vec2 vUv; varying vec3 vColor; attribute float aFade; varying float vFade;
 void main(){vUv=uv; vColor=instanceColor; vFade=aFade; gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.0);}`,pf=`varying vec2 vUv; varying vec3 vColor; varying float vFade;
 void main(){vec2 pixel=(floor(vUv*20.)+.5)/20.-.5;float d=length(pixel);
 float ring=step(.31,d)*(1.-step(.39,d));float echo=step(.43,d)*(1.-step(.48,d));
@@ -7219,7 +7420,9 @@ three/build/three.module.js:
   if(!buffArt[id]||!old)return;old.replaceWith(medallion(id));
  }
  function decorateLibrary(){
-  const library=document.getElementById('home-library');if(!library?.querySelector('nav [aria-pressed=true]')?.textContent.startsWith('BUFF '))return;
+  const library=document.getElementById('home-library'),active=library?.querySelector('nav [aria-pressed=true]');
+  // The player-facing category is localized; use its current Chinese label instead of the old internal "BUFF" prefix.
+  if(!active?.textContent.trim().startsWith('增益'))return;
   for(const summary of library.querySelectorAll('.library-list summary')){
    if(summary.querySelector('[data-arc-buff-icon]'))continue;
    const id=buffNames[summary.textContent.trim()];if(buffArt[id])summary.prepend(medallion(id));
@@ -7621,7 +7824,22 @@ three/build/three.module.js:
  reduced.addEventListener('change',refresh);document.addEventListener('visibilitychange',refresh);window.addEventListener('pageshow',refresh);
  window.addEventListener('pagehide',event=>{if(event.persisted)return;stopped=true;observer.disconnect();cancelAnimationFrame(frame);for(const s of states.values())dispose(s);if(engine){const e=engine;e.gl.deleteTexture(e.texture);e.gl.deleteBuffer(e.buffer);e.gl.deleteProgram(e.program);}images.clear();});
 })();
-</script><script id="rotation-pwa" src="./rotation-pwa-register.js" defer></script></body></html>
+</script><script id="arcade-close-adapter">(()=>{
+ const overlay=document.getElementById('overlay'),start=document.getElementById('start');
+ const close=document.createElement('button');
+ close.id='arc-overlay-close';close.type='button';close.hidden=true;
+ close.setAttribute('aria-label','关闭当前面板，继续游戏');close.title='关闭';
+ overlay.querySelector('.dialog').append(close);
+ // Share the existing resume/dismiss action, including animation and state guards.
+ close.addEventListener('click',()=>{if(!close.hidden&&!start.disabled)start.click();});
+ function sync(){
+  close.hidden=overlay.hidden||!(overlay.dataset.pause==='true'||overlay.dataset.reading==='true')||start.hidden;
+  close.disabled=start.disabled;
+ }
+ new MutationObserver(sync).observe(overlay,{attributes:true,attributeFilter:['hidden','data-home','data-pause','data-reading']});
+ new MutationObserver(sync).observe(start,{attributes:true,attributeFilter:['hidden','disabled']});
+ sync();
+})();</script><script id="rotation-pwa" src="./rotation-pwa-register.js" defer></script></body></html>
 
 <!-- Third-party notices
 The MIT License
