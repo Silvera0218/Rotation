@@ -1,0 +1,15 @@
+const {chromium}=require('C:/Users/caohua/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const assert=require('assert/strict'),fs=require('fs');
+(async()=>{const b=await chromium.launch({channel:'msedge',headless:true});const p=await b.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'}),report={errors:[]};p.on('pageerror',e=>report.errors.push(e.stack));try{
+await p.goto('http://127.0.0.1:5188/rotationV3/?qa=1');await p.waitForFunction(()=>window.__liteQA);await p.locator('#start').click();await p.waitForFunction(()=>!__liteQA.busy);
+await p.evaluate(()=>{__liteQA.naturalFall=false;const g=__liteQA.game;g.lite.coins=100;g.checkpointScore=g.goal;g.completeCheckpoint();__liteQA.refresh();});await p.waitForSelector('.v3-reward-choice');await p.locator('#v3-shop-open').click();
+const id=await p.evaluate(()=>{const o=__liteQA.game.lite.roll.shopOffers[0];return o.kind==='special'?'block-'+o.item:o.item});const before=await p.evaluate(id=>__liteQA.game.lite.tools[id],id);let wallet=await p.evaluate(()=>__liteQA.game.lite.coins);
+for(const [price,next] of [[5,10],[10,15],[15,25]]){
+ const item=p.locator('.lite-shop-buy').first();assert.equal(await item.locator('.lite-shop-price').innerText(),price+' 金币');await item.click();assert.equal(await p.locator('#lite-shop-detail-price').innerText(),price+' 金币');await p.locator('#lite-shop-detail-buy').click();wallet-=price;
+ assert.equal(await p.evaluate(()=>__liteQA.game.lite.coins),wallet);assert.equal(await item.isEnabled(),true);assert.equal(await item.locator('.lite-shop-price').innerText(),next+' 金币');
+}
+assert.equal(await p.evaluate(id=>__liteQA.game.lite.tools[id],id),before+3);assert.equal(await p.locator('.lite-shop-buy').nth(1).locator('.lite-shop-price').innerText(),'5 金币');
+await p.reload();await p.waitForFunction(()=>window.__liteQA);await p.locator('#start').click();await p.waitForSelector('.lite-shop-buy');assert.equal(await p.locator('.lite-shop-buy').first().locator('.lite-shop-price').innerText(),'25 金币');assert.equal(await p.evaluate(()=>__liteQA.game.lite.coins),wallet);
+await p.evaluate(()=>__liteQA.game.lite.coins=0);await p.locator('.lite-shop-buy').first().click();assert.equal(await p.locator('#lite-shop-detail-buy').isDisabled(),true);assert.equal(await p.locator('#lite-shop-detail-buy').innerText(),'金币不足');await p.locator('#lite-shop-detail-cancel').click();await p.screenshot({path:'rotationV3/artifacts/shop-fibonacci.png'});
+assert.deepEqual(report.errors,[]);report.status='PASS';report.checks=['Repeat buying charges 5, 10, 15; card and detail price update immediately','Other items stay at 5','Inventory, wallet and next price 25 survive reload','Insufficient coins disable purchase, no sold-out state'];
+}catch(e){report.status='FAIL';report.failure=e.stack;process.exitCode=1;}finally{fs.writeFileSync('rotationV3/artifacts/shop-fibonacci-report.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));await b.close();}})();
